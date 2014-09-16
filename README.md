@@ -1,4 +1,4 @@
 docker-felix
 ============
 
-Docker image source project for a peconfigured fapache elix installation
+Docker image source project for a preconfigured apache felix installation
