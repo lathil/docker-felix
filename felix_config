@@ -10,7 +10,6 @@ obr:deploy -s 'Apache Felix Metatype Service';
 obr:deploy -s 'Apache Felix Dependency Manager';
 obr:deploy -s 'Apache Felix Deployment Admin';
 obr:deploy 'OPS4J Base - Lang';
-obr:deploy -s 'OPS4J Pax ConfMan - Properties Loader';
 obr:deploy -s 'OPS4J Pax Logging - API';
 obr:deploy -s 'OPS4J Pax Logging - Service';
 obr:deploy -s 'OPS4J Pax Swissbox :: Lifecycle';
