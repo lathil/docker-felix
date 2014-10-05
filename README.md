@@ -4,7 +4,7 @@ docker-felix
 Docker image source project for a preconfigured apache felix installation
 
 ============
-Features
+###Features
 
 Provides:
 - openjdk 1.7
@@ -22,15 +22,18 @@ Provides:
 Base image is Ubuntu 14:04
 
 ============
-Volumes
+###Volumes
 
 A volume is mounted at /var/felix
 
 An additional configuration instruct the file install bundle to monitor bundles or configurations dropins at /var/felix/fileinstall
 
 ============
-Launch
+###Launch
 
-Launch in detach mode : docker run -d -p 8080:8080 docker-felix
+Launch in detach mode : 
+```
+docker run -d -p 8080:8080 docker-felix
+```
 
 Web console is accessible under port 8080
