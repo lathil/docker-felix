@@ -22,7 +22,13 @@ Provides:
 Base image is Ubuntu 14:04
 
 ============
+Volumes
 
+A volume is mounted at /var/felix
+
+An additional configuration instruct the file install bundle to monitor bundles or configurations dropins at /var/felix/fileinstall
+
+============
 Launch
 
 Launch in detach mode : docker run -d -p 8080:8080 docker-felix
