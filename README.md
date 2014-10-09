@@ -3,6 +3,8 @@ docker-felix
 
 Docker image source project for a preconfigured apache felix installation
 
+Based on resin/rpi-raspbian
+
 ============
 ###Features
 
