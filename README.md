@@ -3,6 +3,8 @@ docker-felix
 
 Docker image source project for a preconfigured apache felix installation
 
+Target is Raspberry'Pi board 
+
 Based on resin/rpi-raspbian
 
 ============
