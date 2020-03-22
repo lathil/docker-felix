@@ -1,0 +1,1 @@
+docker build -t ptoceti/felix-slim:latest -f Dockerfile-jdk8-slim .

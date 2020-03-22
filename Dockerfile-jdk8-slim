@@ -1,0 +1,56 @@
+FROM openjdk:8u242-jre-slim-buster
+
+MAINTAINER laurent Thil <lathil.dev@gmail.com>
+
+ARG FELIX_VERSION=4.2.1
+ENV FELIX_VERSION=${FELIX_VERSION}
+
+ARG FELIX_WEBCONSOLE_PORT=8080
+ENV FELIX_WEBCONSOLE_PORT=${FELIX_WEBCONSOLE_PORT}
+
+ARG FELIX_REMOTESHELL_PORT=6666
+ENV FELIX_REMOTESHELL_PORT=${FELIX_REMOTESHELL_PORT}
+
+ARG FILE_INSTALL_EXTDIR=/var/felix/fileinstall
+ENV FILE_INSTALL_EXTDIR=${FILE_INSTALL_EXTDIR}
+
+ENV FELIX_HOME=/opt/osgi/felix-framework
+
+RUN mkdir /opt/osgi && cd /opt/osgi
+WORKDIR /opt/osgi
+
+RUN apt-get update -yq \
+    && apt-get install curl -yq \
+    && apt-get clean -y
+
+# Install felix distribution
+RUN curl -fsSL -O http://archive.apache.org/dist/felix/org.apache.felix.main.distribution-${FELIX_VERSION}.tar.gz \
+    && tar zxfv org.apache.felix.main.distribution-${FELIX_VERSION}.tar.gz \
+    && rm org.apache.felix.main.distribution-${FELIX_VERSION}.tar.gz \
+    && mv felix-framework-${FELIX_VERSION} felix-framework \
+    && mkdir ${FELIX_HOME}/load \
+    && mkdir -p ${FILE_INSTALL_EXTDIR}
+
+ADD felixbundles/repository.xml ${FELIX_HOME}/conf/repository.xml
+ADD load ${FELIX_HOME}/load
+ADD conf ${FELIX_HOME}/conf
+ADD launch_felix.sh ${FELIX_HOME}/launch_felix.sh
+ADD felix_config ${FELIX_HOME}/felix_config
+ADD conf/system.properties ${FELIX_HOME}/conf/system.properties
+
+WORKDIR ${FELIX_HOME}
+
+
+RUN chmod ago+x launch_felix.sh \
+    && ./launch_felix.sh < felix_config
+
+
+EXPOSE ${FELIX_WEBCONSOLE_PORT}
+EXPOSE ${FELIX_REMOTESHELL_PORT}
+
+VOLUME ${FILE_INSTALL_EXTDIR}
+
+# launch with gogo shell in nointeractive to be able to run in detach mode
+ENTRYPOINT ["java", "-Dgosh.args=--nointeractive", "-jar","bin/felix.jar"]
+
+

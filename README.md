@@ -1,39 +1,57 @@
-docker-felix
-============
+#docker-felix
+
 
 Docker image source project for a preconfigured apache felix installation
 
-============
-###Features
+##Features
 
 Provides:
-- openjdk 1.7
-- apache felix standard distribution 4.2.1
-- apache felix config admin 1.4.0
-- apache felix dependency manager 3.1
-- apache felix deployment admin 0.9.6
-- apache felix file install 3.2.8
-- apache felix metatype 1.0.4
-- apache felixweb console 4.0 + associated plugins
-- ops4j pax logging 1.4
-- ops4j pax web jetty bundle 2.1.6 ( jetty 8)
-- ops4j pax web extender  2.1.6
+- openjdk 1.8
+- osgi.core
+- osgi.cmpn
+- Apache Geronimo Bundles: json-20090211
+- Apache Commons FileUpload Bundle
+- Apache Commons IO Bundle
+- Apache Felix Configuration Admin Service
+- Apache Felix File Install
+- Apache Felix Metatype Service
+- Apache Felix EventAdmin
+- Apache Felix Log Service
+- Apache Felix Http Api
+- Apache Felix Http Jetty
+- Apache Felix Http Whiteboard
+- Apache Felix Dependency Manager
+- Apache Felix Remote Shell
+- Apache Felix Web Management Console
+- Apache Felix Web Console Event Plugin
+- Apache Felix Web Console Memory Usage Plugin
 
-Base image is Ubuntu 14:04
+Base image debian slim or Alpine
+
+##Environnment
+
+Felix install location configured at
+````
+${FELIX_HOME}=/opt/osgi/felix-framework
+````
+
+##Volumes
+
+Volume for file install configured at:
+````
+${FILE_INSTALL_EXTDIR]=/var/felix/fileinstall
+````
 
 ============
-###Volumes
+###Port
 
-A volume is mounted at /var/felix
+Preconfigured ports
+````
+${FELIX_WEBCONSOLE_PORT}=8080
+${FELIX_REMOTESHELL_PORT}=666
+````
 
-An additional configuration instruct the file install bundle to monitor bundles or configurations dropins at /var/felix/fileinstall
+###Using
 
-============
-###Launch
-
-Launch in detach mode : 
-```
-docker run -d -p 8080:8080 docker-felix
-```
-
-Web console is accessible under port 8080
+Add additional bundles when using in a image at ${FELIX_HOME}/load
+Add additional configurations or bundles at run time at ${FILE_INSTALL_EXTDIR}

@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  felix:
+    build:
+      context: .
+      dockerfile: Dockerfile-jkd8-alpine
+    image: ptoceti/felix-alpine:latest
+    container_name: felix-alpine
+    ports:
+      - "8080:8080"
+    volumes:
+      - fileinstalldir:/var/felix/fileinstall
+volumes:
+  fileinstalldir:
+
