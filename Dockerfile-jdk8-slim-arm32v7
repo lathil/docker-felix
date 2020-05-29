@@ -1,4 +1,5 @@
-FROM arm32v7/openjdk:8u181-jdk-slim
+#FROM arm32v7/openjdk:8-jre-stretch
+FROM arm32v7/openjdk:8u212-jdk-slim-stretch
 
 MAINTAINER laurent Thil <lathil.dev@gmail.com>
 
@@ -19,8 +20,12 @@ ENV FELIX_HOME=/opt/osgi/felix-framework
 RUN mkdir /opt/osgi && cd /opt/osgi
 WORKDIR /opt/osgi
 
+RUN apt-get update -yq \
+    && apt-get install curl -yq \
+    && apt-get clean -y
+
 # Install felix distribution
-RUN wget http://archive.apache.org/dist/felix/org.apache.felix.main.distribution-${FELIX_VERSION}.tar.gz \
+RUN curl -fsSL -O http://archive.apache.org/dist/felix/org.apache.felix.main.distribution-${FELIX_VERSION}.tar.gz \
     && tar zxfv org.apache.felix.main.distribution-${FELIX_VERSION}.tar.gz \
     && rm org.apache.felix.main.distribution-${FELIX_VERSION}.tar.gz \
     && mv felix-framework-${FELIX_VERSION} felix-framework \
